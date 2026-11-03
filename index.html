@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBER SHIELD | Raqamli xavfsizlik</title>
+<style>
+:root{--bg:#071426;--panel:#0d2038;--panel2:#102945;--blue:#36b7ff;--cyan:#76dcff;--white:#f4f8ff;--muted:#a9bdd2;--line:rgba(140,190,230,.18);--good:#51d6a1;--bad:#ff7d8b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--white);overflow:hidden}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 82% 18%,rgba(28,132,207,.17),transparent 28%),radial-gradient(circle at 10% 90%,rgba(31,102,165,.13),transparent 32%);pointer-events:none}
+.deck{height:100%;position:relative}.slide{display:none;position:absolute;inset:0;padding:6vh 8vw 11vh;animation:enter .45s ease;overflow:auto}.slide.active{display:flex;flex-direction:column;justify-content:center}
+@keyframes enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.topline{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:clamp(11px,1.1vw,15px);letter-spacing:.16em;text-transform:uppercase;margin-bottom:4vh}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--white);letter-spacing:.12em}.brandmark{width:27px;height:30px;border:2px solid var(--blue);border-radius:9px 9px 12px 12px;display:grid;place-items:center;color:var(--cyan);font-size:14px}
+.kicker{color:var(--cyan);font-size:clamp(12px,1.2vw,17px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(42px,7vw,92px);line-height:1.02;letter-spacing:-.045em;margin:0 0 22px;max-width:1000px}
+h2{font-size:clamp(32px,4.5vw,60px);line-height:1.08;letter-spacing:-.035em;margin:0 0 22px}
+p{font-size:clamp(17px,1.75vw,24px);line-height:1.55;color:var(--muted);max-width:900px;margin:0 0 18px}
+.accent{color:var(--blue)}.lead{font-size:clamp(20px,2.25vw,30px);color:#dceeff;max-width:850px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:25px}
+.grid.two{grid-template-columns:repeat(2,1fr)}.card{background:linear-gradient(145deg,rgba(16,41,69,.92),rgba(9,27,48,.92));border:1px solid var(--line);border-radius:18px;padding:22px;min-height:150px}
+.card .icon{font-size:30px;margin-bottom:12px}.card h3{font-size:clamp(17px,1.6vw,22px);margin:0 0 9px}.card p{font-size:clamp(14px,1.25vw,18px);margin:0}.click-card{cursor:pointer;text-align:left;color:inherit;width:100%;font:inherit;position:relative;transition:transform .2s,border-color .2s}.click-card:hover,.click-card:focus-visible{transform:translateY(-4px);border-color:var(--blue);outline:none}.click-card:after{content:'Batafsil ko‘rish  ↗';display:block;color:var(--cyan);font-size:13px;margin-top:15px;font-weight:700}
+.hero{display:grid;grid-template-columns:1.35fr .65fr;align-items:center;gap:4vw}
+.shield{width:min(28vw,300px);aspect-ratio:1;justify-self:center;border:1px solid rgba(73,184,255,.45);border-radius:32% 32% 42% 42%;display:grid;place-items:center;box-shadow:0 0 70px rgba(36,157,235,.15),inset 0 0 50px rgba(36,157,235,.08);transform:rotate(0deg);position:relative}
+.shield:before{content:"";position:absolute;inset:13%;border:1px solid rgba(118,220,255,.25);border-radius:inherit}.shield span{font-size:clamp(75px,11vw,145px);color:var(--cyan);text-shadow:0 0 35px rgba(54,183,255,.6)}
+.pill{display:inline-flex;border:1px solid rgba(54,183,255,.35);border-radius:999px;padding:9px 15px;color:var(--cyan);font-size:14px;margin:8px 8px 0 0}
+.callout{border-left:4px solid var(--blue);padding:14px 20px;background:rgba(40,133,195,.1);border-radius:0 12px 12px 0;color:#d9efff;font-size:clamp(16px,1.6vw,22px);max-width:900px;margin-top:20px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:25px}.step{padding:17px;border:1px solid var(--line);border-radius:15px;background:rgba(13,32,56,.8);text-align:left;color:var(--white);font:inherit;width:100%}.num{color:var(--blue);font-size:13px;font-weight:800;letter-spacing:.12em}.step strong{display:block;font-size:clamp(16px,1.5vw,21px);margin:8px 0}.step span{font-size:clamp(13px,1.2vw,17px);color:var(--muted);line-height:1.4}
+.quizbox{max-width:850px;background:rgba(13,32,56,.92);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,3vw,34px);margin-top:12px}
+.question{font-size:clamp(19px,2vw,27px);line-height:1.35;margin-bottom:18px}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.answers button,.controls button,.action{background:#102945;color:var(--white);border:1px solid rgba(118,190,235,.25);padding:13px 17px;border-radius:12px;font-size:16px;cursor:pointer;transition:.2s}
+.answers button:hover,.controls button:hover,.action:hover{border-color:var(--blue);background:#153958}.answers button.correct{border-color:var(--good);background:rgba(81,214,161,.13)}.answers button.wrong{border-color:var(--bad);background:rgba(255,125,139,.12)}
+.feedback{min-height:28px;color:var(--cyan);margin-top:14px;font-size:16px}
+.footer{position:fixed;bottom:0;left:0;right:0;padding:14px 4vw;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(transparent,rgba(4,14,27,.94));z-index:5}
+.progress{height:3px;background:#18314a;position:absolute;bottom:0;left:0;right:0}.bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));width:10%;transition:width .3s}
+.controls{display:flex;gap:8px;align-items:center}.controls button{padding:9px 13px;font-size:14px}.counter{color:var(--muted);font-variant-numeric:tabular-nums;font-size:14px;min-width:55px;text-align:center}
+.hint{font-size:12px;color:#7892ac}.closing{font-size:clamp(25px,3.5vw,46px);color:#dceeff;max-width:850px;line-height:1.25}
+
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(1,8,18,.82);backdrop-filter:blur(8px);z-index:20;align-items:center;justify-content:center;padding:22px}
+.modal-backdrop.open{display:flex}.modal{width:min(760px,100%);max-height:88vh;overflow:auto;background:linear-gradient(145deg,#102945,#091b30);border:1px solid rgba(90,190,245,.35);border-radius:22px;padding:clamp(22px,4vw,38px);box-shadow:0 25px 90px rgba(0,0,0,.5);position:relative}
+.modal h3{font-size:clamp(25px,3vw,38px);margin:0 45px 18px 0}.modal p,.modal li{font-size:clamp(15px,1.35vw,19px);line-height:1.55;color:var(--muted)}.modal ul{padding-left:22px}.modal .modal-label{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}.modal .close{position:absolute;right:18px;top:16px;background:#173653;color:white;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:18px;cursor:pointer}.modal .takeaway{background:rgba(54,183,255,.1);border-left:3px solid var(--blue);padding:13px 16px;border-radius:0 10px 10px 0;color:#e3f4ff;margin-top:18px}
+
+@media(max-width:760px){.slide{padding:5vh 6vw 13vh}.hero{grid-template-columns:1fr}.shield{display:none}.grid{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}.grid .card{min-height:120px}.topline{margin-bottom:3vh}}
+@media(max-width:480px){.grid,.grid.two,.answers{grid-template-columns:1fr}.footer{padding:10px 3vw}.hint{display:none}}
+</style>
+</head>
+<body>
+<main class="deck">
+<section class="slide active">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>01 / 10 · KIRISH</span></div>
+ <div class="hero"><div><div class="kicker">Raqamli dunyoda xavfsiz qoling</div><h1>CYBER<br><span class="accent">SHIELD</span></h1><p class="lead">Kiberxavfsizlik — shaxsiy ma’lumotlarimiz, qurilmalarimiz va raqamli hayotimizni himoya qilish madaniyati.</p><span class="pill">Xabardorlik</span><span class="pill">Himoya</span><span class="pill">Mas’uliyat</span></div><div class="shield"><span>⌑</span></div></div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>02 / 10 · ASOSLAR</span></div>
+ <div class="kicker">01 — Tushuncha</div><h2>Kiberxavfsizlik nima?</h2><p>Bu kompyuterlar, telefonlar, tarmoqlar va ma’lumotlarni raqamli tahdidlardan himoya qilishga qaratilgan bilim va amaliyotlar majmuasi.</p>
+ <div class="grid"><div class="card"><div class="icon">🔒</div><h3>Maxfiylik</h3><p>Ma’lumot faqat ruxsat berilgan odamlarga ochiq bo‘lishi.</p></div><div class="card"><div class="icon">🛡️</div><h3>Yaxlitlik</h3><p>Ma’lumot ruxsatsiz o‘zgartirilmasligi yoki buzilmasligi.</p></div><div class="card"><div class="icon">🌐</div><h3>Mavjudlik</h3><p>Tizim va ma’lumot kerakli paytda ishlashi.</p></div></div>
+ <div class="callout">Oddiy misol: telefoningizdagi suratlar, parollar va bank ilovasi ma’lumotlari — himoya qilinishi kerak bo‘lgan raqamli aktivlar.</div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>03 / 10 · TAHDIDLAR</span></div>
+ <div class="kicker">02 — Xavflarni tanish</div><h2>Internetdagi asosiy kiberxavflar</h2><p>Kiberxavf har doim murakkab texnik hujum bo‘lavermaydi. Ba’zan u oddiy xabar yoki shubhali havoladan boshlanadi.</p>
+ <div class="grid">
+ <button class="card click-card" data-detail="phishing"><div class="icon">🎣</div><h3>Phishing</h3><p>Soxta xabar yoki sayt orqali maxfiy ma’lumotni qo‘lga kiritishga urinish.</p></button>
+ <button class="card click-card" data-detail="malware"><div class="icon">🦠</div><h3>Malware</h3><p>Qurilmaga zarar yetkazish yoki ma’lumotni o‘g‘irlash uchun yaratilgan zararli dastur.</p></button>
+ <button class="card click-card" data-detail="account"><div class="icon">👤</div><h3>Hisob buzilishi</h3><p>O‘g‘irlangan yoki kuchsiz parol yordamida akkauntga ruxsatsiz kirish.</p></button>
+</div>
+<p style="font-size:14px;color:var(--cyan);margin-top:12px">↗ Har bir kartochkani bosib, hayotiy misolni ko‘ring.</p>
+ <div class="callout">Esda tuting: shoshiltiradigan, qo‘rqitadigan yoki juda yaxshi taklif beradigan xabarni tekshirmasdan ochmang.</div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>04 / 10 · PHISHING</span></div>
+ <div class="kicker">03 — Soxta xabarlar</div><h2>Phishing: ishonchdan foydalanadigan tuzoq</h2><p>Firibgar o‘zini bank, yetkazib berish xizmati yoki tanish tashkilotdek ko‘rsatib, sizni havolaga bosishga yoki ma’lumot yuborishga undashi mumkin.</p>
+ <div class="grid two"><div class="card"><div class="icon">⚠️</div><h3>Shubhali belgilar</h3><p>G‘alati jo‘natuvchi manzili, imlo xatolari, favqulodda talab, noma’lum havola.</p></div><div class="card"><div class="icon">✓</div><h3>Nima qilish kerak?</h3><p>Havolani bosmang. Tashkilotning rasmiy ilovasi yoki sayti orqali alohida tekshiring.</p></div></div>
+ <div class="callout">Muhim: parol, SMS-kod yoki tasdiqlash kodini xabar orqali hech kimga bermang — hatto o‘zini xodim deb tanishtirsa ham.</div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>05 / 10 · ZARARLI DASTURLAR</span></div>
+ <div class="kicker">04 — Qurilmani himoyalash</div><h2>Malware, virus va ransomware</h2><p>Malware — zararli dasturlarning umumiy nomi. Ularning vazifasi va ta’siri turlicha bo‘lishi mumkin.</p>
+ <div class="grid">
+ <button class="card click-card" data-detail="virus"><div class="icon">🧬</div><h3>Virus</h3><p>Boshqa fayl yoki dasturga birikib tarqalishi mumkin.</p></button>
+ <button class="card click-card" data-detail="trojan"><div class="icon">🐴</div><h3>Trojan</h3><p>Foydali dasturdek ko‘rinib, aslida zararli vazifa bajaradi.</p></button>
+ <button class="card click-card" data-detail="ransomware"><div class="icon">🔐</div><h3>Ransomware</h3><p>Fayllarni qulflab, ularni qaytarish uchun pul talab qilishi mumkin.</p></button>
+</div><p style="font-size:14px;color:var(--cyan);margin-top:12px">↗ Kartochkalarni bosib, hayotiy vaziyatlarni ko‘ring.</p>
+ <div class="callout">Himoya: dasturlarni ishonchli manbadan yuklang, tizimni yangilang va muhim fayllarning zaxira nusxasini saqlang.</div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>06 / 10 · AKKAUNTLAR</span></div>
+ <div class="kicker">05 — Kirish xavfsizligi</div><h2>Kuchli parol + 2FA</h2><p>Parol akkauntingizning birinchi himoya qatlami. Ikki bosqichli autentifikatsiya esa qo‘shimcha tekshiruvni qo‘shadi.</p>
+ <div class="grid two">
+ <button class="card click-card" data-detail="password"><div class="icon">🔑</div><h3>Kuchli parol</h3><p>Uzun, taxmin qilish qiyin va har bir muhim akkaunt uchun alohida bo‘lsin. Parol menejeridan foydalanish mumkin.</p></button>
+ <button class="card click-card" data-detail="mfa"><div class="icon">📲</div><h3>2FA / MFA</h3><p>Paroldan tashqari ikkinchi tasdiqlash usuli talab qilinadi. Bu akkauntni qo‘shimcha himoyalaydi.</p></button>
+</div><p style="font-size:14px;color:var(--cyan);margin-top:12px">↗ Har bir kartochkani bosib, misolni ko‘ring.</p>
+ <div class="callout">Bir xil parolni bir nechta saytda ishlatish xavfni oshiradi: bitta akkauntdagi muammo boshqalariga ham ta’sir qilishi mumkin.</div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>07 / 10 · SHAXSIY MA’LUMOT</span></div>
+ <div class="kicker">06 — Raqamli iz</div><h2>Ijtimoiy tarmoqlarda ehtiyotkorlik</h2><p>Internetga joylangan ma’lumot uzoq vaqt saqlanib qolishi yoki kutilmagan odamlar qo‘liga tushishi mumkin.</p>
+ <div class="grid">
+ <button class="card click-card" data-detail="location"><div class="icon">📍</div><h3>Joylashuv</h3><p>Uy manzili yoki ayni vaqtdagi joylashuvingizni hammaga oshkor qilmang.</p></button>
+ <button class="card click-card" data-detail="documents"><div class="icon">🪪</div><h3>Shaxsiy hujjatlar</h3><p>Pasport, karta va maxfiy hujjat rasmlarini ochiq ulashmang.</p></button>
+ <button class="card click-card" data-detail="privacy"><div class="icon">⚙️</div><h3>Maxfiylik sozlamalari</h3><p>Profilingizni kim ko‘rishi va siz bilan kim bog‘lana olishini tekshiring.</p></button>
+</div><p style="font-size:14px;color:var(--cyan);margin-top:12px">↗ Kartochkalarni bosib, kundalik misollarni ko‘ring.</p>
+ <div class="callout">Post qilishdan oldin o‘ylang: bu ma’lumotni notanish odam ko‘rsa, qanday xavf tug‘ilishi mumkin?</div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>08 / 10 · MUTAXASSISLAR</span></div>
+ <div class="kicker">07 — Kiberxavfsizlik kasblari</div><h2>Hackerlarning turli rollari</h2><p>“Hacker” so‘zi har doim jinoyatchini anglatmaydi. Muhimi — ruxsat, maqsad va bajarilayotgan ishning qonuniyligi.</p>
+ <div class="grid">
+ <button class="card click-card" data-detail="whitehat"><div class="icon">🟢</div><h3>White Hat</h3><p>Ruxsat bilan tizimni tekshiradi va zaifliklarni tuzatishga yordam beradi.</p></button>
+ <button class="card click-card" data-detail="blackhat"><div class="icon">🔴</div><h3>Black Hat</h3><p>Ruxsatsiz kirish yoki zarar yetkazish kabi noqonuniy ishlarni amalga oshiradi.</p></button>
+ <button class="card click-card" data-detail="greyhat"><div class="icon">🟡</div><h3>Grey Hat</h3><p>Ba’zan ruxsatsiz tekshiruv o‘tkazishi mumkin; bu ham huquqiy muammoga olib keladi.</p></button>
+</div><p style="font-size:14px;color:var(--cyan);margin-top:12px">↗ Har bir rol ustiga bosib, vaziyatni ko‘ring.</p>
+ <div class="callout">Kiberxavfsizlik mutaxassislari faqat hujumni aniqlamaydi — ular tizimlarni xavfsiz loyihalash va himoyalash bilan ham shug‘ullanadi.</div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>09 / 10 · AMALIY HIMOYA</span></div>
+ <div class="kicker">08 — Kundalik odatlar</div><h2>O‘zingizni qanday himoya qilasiz?</h2><p>Kiberxavfsizlik bir martalik sozlama emas. U muntazam bajariladigan oddiy odatlardan boshlanadi.</p>
+ <div class="steps">
+ <button class="step click-card" data-detail="updates"><div class="num">01 / YANGILANG</div><strong>Dasturlarni yangilang</strong><span>Yangilanishlar ma’lum xavfsizlik kamchiliklarini tuzatishi mumkin.</span></button>
+ <button class="step click-card" data-detail="links"><div class="num">02 / TEKSHIRING</div><strong>Havolani tekshiring</strong><span>Jo‘natuvchi va sayt manziliga e’tibor bering.</span></button>
+ <button class="step click-card" data-detail="backup"><div class="num">03 / HIMOYALANG</div><strong>Zaxira nusxa yarating</strong><span>Muhim fayllarni alohida xavfsiz joyda saqlang.</span></button>
+</div><p style="font-size:14px;color:var(--cyan);margin-top:12px">↗ Har bir odatni bosib, qanday qo‘llashni bilib oling.</p>
+ <div class="callout">Eng yaxshi himoya — texnologiya va hushyorlikning birgalikda ishlashidir.</div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>10 / 10 · BILIMNI SINAB KO‘RING</span></div>
+ <div class="kicker">09 — Interaktiv mini-test</div><h2>Qanchalik xavfsiz harakat qilasiz?</h2><p>Vaziyatni o‘qing va eng xavfsiz javobni tanlang.</p>
+ <div class="quizbox"><div class="question" id="question">Sizga bank nomidan “Akkauntingiz bloklanadi, havolani bosing” degan xabar keldi. Nima qilasiz?</div><div class="answers" id="answers"><button data-i="0">Darhol havolani bosaman</button><button data-i="1">Xabarni rasmiy ilova orqali tekshiraman</button><button data-i="2">SMS-kodni yuboraman</button><button data-i="3">Xabarni do‘stlarimga tarqataman</button></div><div class="feedback" id="feedback" aria-live="polite"></div><button class="action" id="next" style="display:none;margin-top:12px">Keyingi savol →</button></div>
+</section>
+<section class="slide">
+ <div class="topline"><div class="brand"><span class="brandmark">✓</span> CYBER SHIELD</div><span>YAKUN</span></div>
+ <div class="kicker">10 — Xulosa</div><h2>Raqamli xavfsizlik — <span class="accent">barchamizning mas’uliyatimiz.</span></h2><p class="closing">To‘xtang. Tekshiring. Himoyalaning.</p><p>Internetdan xavfsiz foydalanish uchun mutaxassis bo‘lish shart emas. To‘g‘ri odatlar katta farq yaratadi.</p>
+ <div class="callout">Savollaringiz bormi? Keling, kiberxavfsizlik haqida suhbatlashamiz.</div><div style="margin-top:28px;color:var(--cyan);font-weight:800;letter-spacing:.18em">CYBER SHIELD · STAY SAFE ONLINE</div>
+</section>
+</main>
+
+<div class="modal-backdrop" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <div class="modal">
+  <button class="close" id="closeModal" aria-label="Yopish">✕</button>
+  <div class="modal-label" id="modalLabel">HAYOTIY MISOL</div>
+  <h3 id="modalTitle">Misol</h3>
+  <div id="modalBody"></div>
+ </div>
+</div>
+<div class="footer"><div class="hint">← → slaydlar · F to‘liq ekran · A avtomatik rejim · ESC chiqish</div><div class="controls"><button id="auto">▶ Auto</button><button id="prev">←</button><span class="counter" id="counter">01 / 11</span><button id="nextSlide">→</button><button id="full">⛶</button></div><div class="progress"><div class="bar" id="bar"></div></div></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let index=0,timer=null;
+function show(n){index=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle('active',i===index));document.getElementById('counter').textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');document.getElementById('bar').style.width=((index+1)/slides.length*100)+'%'}
+function stopAuto(){if(timer){clearInterval(timer);timer=null}document.getElementById('auto').textContent='▶ Auto'}
+function toggleAuto(){if(timer){stopAuto();return}document.getElementById('auto').textContent='Ⅱ Pause';timer=setInterval(()=>show(index+1),9000)}
+document.getElementById('prev').onclick=()=>{stopAuto();show(index-1)};document.getElementById('nextSlide').onclick=()=>{stopAuto();show(index+1)};document.getElementById('auto').onclick=toggleAuto;
+document.getElementById('full').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){stopAuto();show(index+1)}if(e.key==='ArrowLeft'){stopAuto();show(index-1)}if(e.key.toLowerCase()==='f'){document.getElementById('full').click()}if(e.key.toLowerCase()==='a')toggleAuto()});
+
+const detailContent={
+ phishing:{
+  label:'HAYOTIY MISOL · SOXTA XABAR',
+  title:'Phishing — soxta xabarga ishonib qolish',
+  body:`<p><strong>Vaziyat:</strong> Sizga bank nomidan: “Kartangiz vaqtincha bloklandi. Uni faollashtirish uchun havolani bosing”, degan xabar keldi.</p>
+  <p><strong>Xavf nimada?</strong> Xabar bankka o‘xshab ko‘rinadigan soxta sahifaga olib borishi va login, parol yoki karta ma’lumotlarini so‘rashi mumkin.</p>
+  <ul><li>Jo‘natuvchining nomi va manzilini tekshiring.</li><li>Xabardagi havolani bosmang.</li><li>Bankning rasmiy ilovasini o‘zingiz ochib, holatni tekshiring.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> bank yoki boshqa xizmat xodimi sizdan SMS-kod yoki parolingizni so‘ramasligi kerak.</div>`
+ },
+ malware:{
+  label:'HAYOTIY MISOL · TELEGRAMDAGI APK',
+  title:'Malware — notanish APK fayli',
+  body:`<p><strong>Vaziyat:</strong> Telegram orqali notanish akkauntdan “Bu sizning rasmingizmi?”, “To‘y taklifnomasi” yoki “Yangi video” degan yozuv bilan <strong>.apk</strong> fayl yuborildi.</p>
+  <p><strong>Xavf nimada?</strong> APK — Android ilovasini o‘rnatish fayli. Noma’lum manbadan yuborilgan APK zararli dastur bo‘lishi mumkin. O‘rnatilgach, ayrim zararli ilovalar kontaktlar, SMS yoki boshqa shaxsiy ma’lumotlarga kirishga urinishi mumkin.</p>
+  <ul><li>Faylni ochmang va o‘rnatmang.</li><li>Hatto tanishingiz yuborgan bo‘lsa ham, boshqa aloqa kanali orqali o‘zi yuborganini tekshiring.</li><li>Ilovalarni faqat ishonchli rasmiy do‘konlardan o‘rnating.</li><li>Ilova so‘rayotgan ruxsatlarni diqqat bilan ko‘rib chiqing.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> Telegram orqali kelgani faylni xavfsiz qilmaydi. Kutilmagan APK — jiddiy ogohlantiruvchi belgi.</div>
+  <p style="font-size:13px">Manba: O‘zbekiston OAVda e’lon qilingan Cybersecurity Center ogohlantirishi va Singapur Cyber Security Agency tavsiyalari.</p>`
+ },
+ account:{
+  label:'HAYOTIY MISOL · AKKAUNT XAVFSIZLIGI',
+  title:'Hisob buzilishi — tasdiqlash kodini berib qo‘yish',
+  body:`<p><strong>Vaziyat:</strong> Sizga tanishingiz yoki xizmat vakili nomidan yozib, “Akkauntingizga kirish uchun kelgan 5–6 xonali kodni menga yuboring”, deyishdi.</p>
+  <p><strong>Xavf nimada?</strong> Bu kod akkauntingizga kirishni tasdiqlash uchun ishlatilishi mumkin. Uni begona odamga yuborsangiz, akkauntingiz ustidan nazoratni yo‘qotishingiz mumkin.</p>
+  <ul><li>Tasdiqlash kodini hech kimga bermang.</li><li>Ikki bosqichli himoyani yoqing.</li><li>Akkaunt sozlamalaridagi faol qurilmalarni tekshiring.</li><li>Shubhali sessiyalarni yoping va parolni yangilang.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> tasdiqlash kodi — vaqtinchalik kalit. Uni o‘zingizdan boshqa hech kimga bermang.</div>`
+ },
+ virus:{
+  label:'HAYOTIY MISOL · ZARARLI FAYL',
+  title:'Virus — zararlangan fayl',
+  body:`<p><strong>Vaziyat:</strong> Siz internetdan noma’lum manbadan hujjat yoki o‘yin faylini yuklab oldingiz. Fayl ishga tushgach, qurilmada noodatiy xatti-harakatlar sezilishi mumkin.</p>
+  <p><strong>Xavf nimada?</strong> Ayrim viruslar boshqa fayllarga birikib, ular ishga tushganda tarqalishga urinadi.</p>
+  <ul><li>Noma’lum manbalardan fayl yuklamang.</li><li>Operatsion tizim va himoya dasturini yangilab boring.</li><li>Shubhali faylni ochmang; qurilmani ishonchli xavfsizlik vositasi bilan tekshiring.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> fayl nomi yoki chiroyli belgisi uning xavfsizligini kafolatlamaydi.</div>`
+ },
+ trojan:{
+  label:'HAYOTIY MISOL · SOXTA ILOVA',
+  title:'Trojan — foydali dastur niqobidagi xavf',
+  body:`<p><strong>Vaziyat:</strong> Sizga “telefonni tezlashtiradi” yoki “premium imkoniyatlarni bepul ochadi” deb noma’lum ilova tavsiya qilindi.</p>
+  <p><strong>Xavf nimada?</strong> Trojan foydali dasturdek ko‘rinishi mumkin, ammo ishga tushgach yashirin zararli vazifalarni bajarishi ehtimoli bor.</p>
+  <ul><li>Ilovani ishlab chiquvchi va rasmiy manbasini tekshiring.</li><li>Keraksiz ruxsatlarni bermang.</li><li>Shubhali ilovani o‘rnatmang va qurilmangizdagi ilovalar ro‘yxatini vaqti-vaqti bilan ko‘rib chiqing.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> “bepul” yoki “foydali” degan va’da xavfsizlik kafolati emas.</div>`
+ },
+ ransomware:{
+  label:'HAYOTIY MISOL · FAYLLAR XAVFSIZLIGI',
+  title:'Ransomware — fayllarni qulflash',
+  body:`<p><strong>Vaziyat:</strong> Kompyuterdagi hujjatlar va suratlar ochilmay qoladi, ekranda esa fayllarni qaytarish uchun pul talab qiluvchi xabar paydo bo‘ladi.</p>
+  <p><strong>Xavf nimada?</strong> Ransomware fayllarni shifrlab, ulardan foydalanishni to‘sishi mumkin. To‘lov qilish fayllar qaytishini kafolatlamaydi.</p>
+  <ul><li>Muhim fayllarning alohida zaxira nusxasini saqlang.</li><li>Qurilmani tarmoqdan ajratib, mas’ul IT mutaxassisi yoki ishonchli kattalardan yordam so‘rang.</li><li>Shubhali xabar bilan muloqot qilmang va o‘zboshimchalik bilan to‘lov qilmang.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> muntazam zaxira nusxa ma’lumot yo‘qolishi xavfini kamaytiradi.</div>`
+ },
+ password:{
+  label:'HAYOTIY MISOL · PAROL',
+  title:'Kuchli parol — har akkauntga alohida kalit',
+  body:`<p><strong>Vaziyat:</strong> Bir kishi ijtimoiy tarmoq, elektron pochta va boshqa xizmatlarda bir xil paroldan foydalanadi. Xizmatlardan birida ma’lumotlar sizib chiqsa, qolgan akkauntlari ham xavf ostida qolishi mumkin.</p>
+  <ul><li>Har bir muhim akkaunt uchun alohida va uzun parol yoki passphrase tanlang.</li><li>Parol menejeridan foydalanish mumkin.</li><li>Parolni ism, tug‘ilgan sana yoki oddiy ketma-ketliklardan tuzmang.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> parolni hech kim bilan ulashmang va turli saytlarda qayta ishlatmang.</div>`
+ },
+ mfa:{
+  label:'HAYOTIY MISOL · IKKI BOSQICHLI HIMOYA',
+  title:'2FA — qo‘shimcha xavfsizlik darajasi',
+  body:`<p><strong>Vaziyat:</strong> Kimdir parolingizni bilib qolgan taqdirda ham, akkauntga kirish uchun ikkinchi tasdiqlash omili talab qilinishi mumkin.</p>
+  <p><strong>Qanday yordam beradi?</strong> 2FA/MFA paroldan tashqari qo‘shimcha tekshiruv qo‘shadi. Bu o‘g‘irlangan parolning o‘zi bilan akkauntga kirishni qiyinlashtiradi.</p>
+  <ul><li>Muhim akkauntlarda ikki bosqichli himoyani yoqing.</li><li>Imkon bo‘lsa, autentifikator ilovasi yoki xavfsizlik kaliti kabi kuchli usulni tanlang.</li><li>Kutilmagan tasdiqlash so‘rovini ma’qullamang va kodni hech kimga bermang.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> ikkinchi bosqichni ham himoyalash kerak — tasdiqlash kodlari sir saqlanadi.</div>`
+ },
+ location:{
+  label:'HAYOTIY MISOL · JOYLASHUV',
+  title:'Joylashuvni oshkor qilish',
+  body:`<p><strong>Vaziyat:</strong> Siz har kuni qayerga borishingiz, qachon uydan chiqishingiz yoki ayni paytda qayerda ekaningizni hammaga ochiq post qilasiz.</p>
+  <p><strong>Xavf nimada?</strong> Bunday ma’lumotlar sizning kundalik tartibingiz va qayerda bo‘lishingiz haqida ortiqcha ma’lumot berishi mumkin.</p>
+  <ul><li>Joylashuvni faqat ishonchli odamlar bilan ulashing.</li><li>Postlarda uy manzili, maktab yo‘nalishi yoki real vaqt joylashuvini ko‘rsatmang.</li><li>Ilovalarning location ruxsatlarini tekshirib turing.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> har bir surat yoki post hamma uchun bo‘lishi shart emas.</div>`
+ },
+ documents:{
+  label:'HAYOTIY MISOL · SHAXSIY MA’LUMOT',
+  title:'Hujjat va maxfiy ma’lumotlarni himoyalash',
+  body:`<p><strong>Vaziyat:</strong> Kimdir ijtimoiy tarmoqdagi izohda sizdan pasport, bank kartasi yoki shaxsiy hujjat rasmini yuborishni so‘raydi.</p>
+  <p><strong>Xavf nimada?</strong> Hujjatdagi ma’lumotlar shaxsni taqlid qilish yoki firibgarlikda ishlatilishi mumkin.</p>
+  <ul><li>Hujjat rasmlarini ochiq post yoki chatlarga yubormang.</li><li>Ma’lumot so‘rayotgan tashkilotning rasmiyligini alohida tekshiring.</li><li>Faqat zarur ma’lumotni, ishonchli va rasmiy kanal orqali ulashing.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> shaxsiy ma’lumotni ulashishdan oldin kim so‘rayotgani va nima uchun kerakligini tekshiring.</div>`
+ },
+ privacy:{
+  label:'HAYOTIY MISOL · MAXFIYLIK SOZLAMALARI',
+  title:'Profilingizni kim ko‘ra oladi?',
+  body:`<p><strong>Vaziyat:</strong> Ijtimoiy tarmoq profilingizdagi suratlar, telefon raqamingiz yoki postlaringiz hammaga ochiq bo‘lib qolgan.</p>
+  <p><strong>Nima qilish kerak?</strong> Maxfiylik sozlamalari orqali kontentingizni kim ko‘rishi, sizga kim yozishi va kim sizni guruhlarga qo‘sha olishini boshqarish mumkin.</p>
+  <ul><li>Profil ko‘rinishini tekshiring.</li><li>Noma’lum akkauntlardan kelgan xabar va so‘rovlarni ehtiyotkorlik bilan ko‘rib chiqing.</li><li>Ilovalarga berilgan ruxsatlarni vaqti-vaqti bilan qayta ko‘rib chiqing.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> maxfiylik sozlamalarini bir marta emas, muntazam tekshirib turing.</div>`
+ },
+ whitehat:{
+  label:'HAYOTIY MISOL · QONUNIY XAVFSIZLIK',
+  title:'White Hat — ruxsat bilan himoyani tekshirish',
+  body:`<p><strong>Vaziyat:</strong> Tashkilot o‘z saytini xavfsizlik bo‘yicha tekshirtirish uchun mutaxassisni rasman taklif qiladi va ish doirasini oldindan belgilaydi.</p>
+  <p><strong>Mutaxassis nima qiladi?</strong> Kelishilgan doirada zaifliklarni izlaydi, topilmalarni hujjatlashtiradi va ularni tuzatish bo‘yicha tavsiya beradi.</p>
+  <ul><li>Faqat yozma ruxsat berilgan tizimlarni tekshiradi.</li><li>Topilmalarni mas’ul tashkilotga maxfiy tarzda yetkazadi.</li><li>Ma’lumotlarni himoya qiladi va kelishilgan qoidalarga amal qiladi.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> ruxsat va aniq kelishilgan doira — etik xavfsizlik tekshiruvining asosi.</div>`
+ },
+ blackhat:{
+  label:'HAYOTIY MISOL · NOQONUNIY FAOLIYAT',
+  title:'Black Hat — ruxsatsiz zarar yetkazish',
+  body:`<p><strong>Vaziyat:</strong> Shaxs boshqa birovning akkauntiga ruxsatsiz kirishga yoki uning ma’lumotlarini o‘g‘irlashga urinadi.</p>
+  <p><strong>Nima uchun bu zararli?</strong> Bu shaxsiy hayot daxlsizligini buzadi, ma’lumot yo‘qolishiga va moliyaviy yoki boshqa zarar ko‘rishga olib kelishi mumkin.</p>
+  <ul><li>Boshqa odamning akkaunti yoki qurilmasiga ruxsatsiz kirmang.</li><li>Shubhali faoliyatni platformaga yoki mas’ul kattalarga xabar qiling.</li><li>O‘z akkauntlaringizda kuchli parol va MFA ishlating.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> texnik imkoniyat borligi undan foydalanishga ruxsat bor degani emas.</div>`
+ },
+ greyhat:{
+  label:'HAYOTIY MISOL · RUXSAT CHEGARASI',
+  title:'Grey Hat — ruxsatsiz tekshiruv ham muammo tug‘dirishi mumkin',
+  body:`<p><strong>Vaziyat:</strong> Bir kishi tashkilot saytida zaiflik bor deb o‘ylab, oldindan ruxsat olmasdan uni tekshirishga kirishadi.</p>
+  <p><strong>Nima uchun ehtiyot bo‘lish kerak?</strong> Yaxshi niyat bo‘lsa ham, ruxsatsiz tekshiruv tizim ishiga xalaqit berishi yoki qonuniy muammo tug‘dirishi mumkin.</p>
+  <ul><li>Tekshiruvdan oldin aniq va yozma ruxsat oling.</li><li>Faqat kelishilgan tizim va usullar doirasida ishlang.</li><li>Topilgan muammo haqida mas’ul tashkilotga xavfsiz kanal orqali xabar bering.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> xavfsizlikni tekshirishda ham ruxsat birinchi o‘rinda turadi.</div>`
+ },
+ updates:{
+  label:'HAYOTIY MISOL · YANGILANISHLAR',
+  title:'Yangilanishlarni kechiktirmang',
+  body:`<p><strong>Vaziyat:</strong> Telefon yoki kompyuter yangilanish mavjudligini bildiradi, lekin foydalanuvchi uni uzoq vaqt ortga suradi.</p>
+  <p><strong>Nima uchun muhim?</strong> Yangilanishlar ayrim ma’lum xavfsizlik kamchiliklarini tuzatadi.</p>
+  <ul><li>Operatsion tizim va ilovalarni rasmiy yangilash funksiyasi orqali yangilang.</li><li>Imkon bo‘lsa, avtomatik yangilanishni yoqing.</li><li>Yangilanishni faqat qurilmaning o‘zidagi sozlamalar yoki rasmiy manbadan bajaring.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> yangilanish — faqat yangi ko‘rinish emas, xavfsizlik tuzatishlari ham bo‘lishi mumkin.</div>`
+ },
+ links:{
+  label:'HAYOTIY MISOL · HAVOLANI TEKSHIRISH',
+  title:'Havolani bosishdan oldin to‘xtang',
+  body:`<p><strong>Vaziyat:</strong> Sizga tanlovda yutganingiz yoki akkauntingizda muammo borligi haqida xabar keladi va tezda havolani ochishingiz so‘raladi.</p>
+  <p><strong>Nima qilish kerak?</strong> Xabardagi havolaga tayanmang. Tashkilotning manzilini o‘zingiz bilgan rasmiy usulda oching yoki mustaqil aloqa qiling.</p>
+  <ul><li>Jo‘natuvchini tekshiring.</li><li>Shoshiltiruvchi va’dalar yoki tahdidlarga ishonib ketmang.</li><li>Shubhali havolaga ma’lumot kiritmang.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> bir necha soniya to‘xtab tekshirish akkauntingizni himoya qilishi mumkin.</div>`
+ },
+ backup:{
+  label:'HAYOTIY MISOL · ZAXIRA NUSXA',
+  title:'Zaxira nusxa — muhim fayllarning ikkinchi nusxasi',
+  body:`<p><strong>Vaziyat:</strong> Telefon yo‘qoladi yoki kompyuterdagi fayllar buziladi. Agar suratlar va hujjatlarning zaxira nusxasi bo‘lsa, ularni tiklash imkoniyati yuqoriroq bo‘ladi.</p>
+  <ul><li>Muhim fayllarni muntazam zaxiralang.</li><li>Zaxira nusxani asosiy qurilmadan alohida, ishonchli joyda saqlang.</li><li>Vaqti-vaqti bilan nusxa ochilishini tekshiring.</li></ul>
+  <div class="takeaway"><strong>Esda tuting:</strong> zaxira nusxa faqat yaratilganida emas, tiklash mumkinligi tekshirilganida foydali.</div>`
+ }
+};
+const detailModal=document.getElementById('detailModal');
+document.querySelectorAll('[data-detail]').forEach(card=>card.addEventListener('click',()=>{
+ const d=detailContent[card.dataset.detail];
+ document.getElementById('modalLabel').textContent=d.label;
+ document.getElementById('modalTitle').textContent=d.title;
+ document.getElementById('modalBody').innerHTML=d.body;
+ detailModal.classList.add('open');
+}));
+function closeDetail(){detailModal.classList.remove('open')}
+document.getElementById('closeModal').addEventListener('click',closeDetail);
+detailModal.addEventListener('click',e=>{if(e.target===detailModal)closeDetail()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail()});
+
+const qs=[
+{q:'Sizga bank nomidan “Akkauntingiz bloklanadi, havolani bosing” degan xabar keldi. Nima qilasiz?',a:['Darhol havolani bosaman','Xabarni rasmiy ilova orqali tekshiraman','SMS-kodni yuboraman','Xabarni do‘stlarimga tarqataman'],c:1,f:'To‘g‘ri! Xabarni havoladan emas, bankning rasmiy ilovasi yoki sayti orqali tekshirish kerak.'},
+{q:'Bir xil parolni barcha akkauntlarda ishlatish nega xavfli?',a:['Yodlash oson bo‘lgani uchun','Bitta parol oshkor bo‘lsa, bir nechta akkaunt xavf ostida qoladi','Telefon tez ishlaydi','Internet sekinlashadi'],c:1,f:'To‘g‘ri! Har bir muhim akkaunt uchun alohida parol ishlatish xavfni kamaytiradi.'},
+{q:'2FA nimani anglatadi?',a:['Ikki bosqichli autentifikatsiya','Ikki xil brauzer','Ikki dona parolni hammaga berish','Internet tezligini oshirish'],c:0,f:'To‘g‘ri! 2FA paroldan tashqari qo‘shimcha tasdiqlash qatlamini qo‘shadi.'}
+];let qi=0;
+function loadQ(){let q=qs[qi];document.getElementById('question').textContent=q.q;document.getElementById('feedback').textContent='';document.getElementById('next').style.display='none';document.querySelectorAll('#answers button').forEach((b,i)=>{b.textContent=q.a[i];b.disabled=false;b.className='';b.onclick=()=>{document.querySelectorAll('#answers button').forEach((x,j)=>{x.disabled=true;if(j===q.c)x.classList.add('correct')});if(i!==q.c)b.classList.add('wrong');document.getElementById('feedback').textContent=i===q.c?q.f:'Bu eng xavfsiz tanlov emas. '+q.f;document.getElementById('next').style.display='inline-block'}})}
+document.getElementById('next').onclick=()=>{qi=(qi+1)%qs.length;loadQ()};loadQ();show(0);
+</script>
+</body></html>
